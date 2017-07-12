@@ -1,0 +1,67 @@
+
+{% load static %}
+
+
+{% if state_json_2 %}
+	<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+	</head>
+
+	<link rel = "stylesheet" type = "text/css" href = "{% static 'map/style.css' %}" />
+
+	<h1><center>State Demographics</center></h1>
+
+	<div id  = "wrapper2">
+		<div class="dropdown">
+			<button class="dropbtn">Metric</button>
+		  	<div class="dropdown-content">
+		    	<a onclick = "fillMap('{{state_json_2|escapejs}}', 2)">Employment</a>
+		    	<a onclick = "fillMap('{{state_json_2|escapejs}}', 1)">Population Density</a>
+		    	<a onclick = "fillMap('{{state_json_2|escapejs}}', 0)">Clear</a>
+		  	</div>
+		</div>
+		<div id = "searchDisplay">
+			<center><div id = "searchText">Choose Metric ...</div></center>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="{% static 'map/javascript/jquery.imagemapster.js' %}"></script>
+
+	<!-- defalt width/height: 1188/840    good image: usa2re.png-->
+	<div id = "wrapper">
+		<div id = "first">
+			<script type="text/javascript">
+				var width = document.getElementById('first').offsetWidth;
+				text = "<img id = \"usa\" src=\"{% static 'map/images/usaPNGRe.png' %}\" width=\"" + width + "\" alt=\"Map of the United States\" usemap=\"#usamap\">\n";
+				//text += "<div style = \"position: relative; left: 25%; width: 50%;\" id = \"grad\"></div>"
+				document.getElementById("first").innerHTML = text;
+			</script>
+			<div id = "legendWrapper">
+				<div id = "legendLeast"></div>
+				<div id = "legendAve"></div>
+				<div id = "legendMost"></div>
+			</div>
+			<div style = "position: relative; left: 25%; width: 50%;" id = "grad"></div>
+		</div>
+		<div id = "second">
+			<div id = "stateImg"></div>
+			<div id = "margin"></div>
+			<div id = "stateTable"></div>
+		</div>
+	</div>
+
+	<div id = "map_img"></div>
+		<script type="text/javascript" src = "{% static 'map/javascript/state_coords.js' %}">
+	</script>
+
+	<script type="text/javascript" src = "{% static 'map/javascript/fillmapster.js' %}">
+	</script>
+	<script type="text/javascript">
+		fillMap('{{state_json_2|escapejs}}', 0);
+	</script>
+	</html>
+	
+	
+
+{% endif %}
